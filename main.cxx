@@ -41,11 +41,16 @@ static inline bool handle_raw_input_2(RAWINPUT const& raw)
 	       (unsigned int)raw.header.dwSize);
 
 	if (raw.header.dwType == RIM_TYPEMOUSE)
+	{
 		printf("usFlags: %ui X: %li Y: %li Extra: %uli\n",
 		       (unsigned int)raw.data.mouse.usFlags,
 		       (long int)raw.data.mouse.lLastX,
 		       (long int)raw.data.mouse.lLastY,
 		       (unsigned long int)raw.data.mouse.ulExtraInformation);
+		if (raw.data.mouse.usButtonFlags == RI_MOUSE_WHEEL)
+		    printf("usButtonFlags: RI_MOUSE_WHEEL usButtonData: %hd\n",
+		           (short int)raw.data.mouse.usButtonData);
+	}
 
 	return true;
 }
